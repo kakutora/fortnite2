@@ -1,0 +1,332 @@
+body,
+h1,
+h2,
+h3,
+h4,
+ul,
+li,
+p,
+dl,
+dt,
+dd,
+figure,
+button {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    display: block;
+}
+
+img {
+    vertical-align: bottom;
+    bottom: none;
+    max-width: 100%;
+}
+
+ul,
+ol {
+    list-style-type: none;
+}
+
+video,
+object {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    display: block;
+    background: none;
+    border: none;
+    outline: none;
+    appearance: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+
+    &:hover,
+    &:active,
+    &:visited {
+        color: inherit;
+    }
+
+    &:hover {
+        opacity: 0.5;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+*,
+*::before,
+*::after {
+    //スマホ用
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%; //ちょうど10px
+    line-height: 1.6; //なんとなく
+    height: 100%; //画像の縦幅の上書き
+    scroll-behavior: smooth; //ページないスクロールをスムーズにする
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    width: 100%;
+}
+
+//----------------
+@mixin breakpoint {
+    @media (max-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin rem-pixel($size) {
+    //remがpixelみたいに使える
+    font-size: ($size / 10) + rem;
+}
+
+@mixin centering($top) {
+    position: absolute;
+    top: $top;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+//----------------
+body {
+    background: #EEECEC;
+}
+
+header {
+    width: 100%;
+    height: 80px;
+    background: #F8F8F8;
+
+    section {
+        display: flex;
+        justify-content: center;
+
+        h2 {
+            width: 175px;
+            margin: 15px auto 0 0;
+        }
+
+        button {
+            display: none;
+        }
+
+        ul {
+            display: flex;
+            justify-content: space-around;
+
+            li {
+                margin: 25px 30px 0;
+                font-weight: bold;
+                @include rem-pixel(20);
+            }
+        }
+
+        .download {
+            display: block;
+            margin: 20px 25px 0 auto;
+            font-weight: normal;
+            @include rem-pixel(20);
+            img{
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+            }
+            &::after{
+                margin-left: 15px;
+                font-weight: bold;
+                content: "ダウンロード";
+                @include rem-pixel(18);
+            }
+        }
+    }
+}
+
+nav {
+    width: 100%;
+    height: 80px;
+    background: #EEECEC;
+    box-shadow: 0px 2px #00000080;
+
+    ul {
+        display: flex;
+        justify-content: center;
+
+        li {
+            margin: 25px 40px 0;
+            @include rem-pixel(18);
+        }
+    }
+}
+
+.catch {
+    margin: 50px 0;
+    text-align: center;
+    font-weight: normal;
+    @include rem-pixel(25);
+
+    span {
+        display: inline-block;
+    }
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 80px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+figure {
+    width: 350px;
+    height: 550px;
+    background-color: #ffffff;
+
+    figcaption {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        h2 {
+            text-align: center;
+            white-space: nowrap;
+            line-height: 50px;
+            @include rem-pixel(27);
+            @include centering(5%);
+        }
+
+        p {
+            text-align: center;
+            white-space: nowrap;
+            line-height: 22px;
+            @include rem-pixel(12);
+            @include centering(25%);
+        }
+
+        button {
+            width: 150px;
+            height: 45px;
+            background: #1473E6;
+            color: white;
+            font-weight: bold;
+            border-radius: 50px 20px 50px 20px;
+            @include rem-pixel(19);
+            @include centering(50%);
+
+            &:hover {
+                background: #1473e680;
+            }
+        }
+    }
+}
+
+@include breakpoint {
+
+    header {
+        display: block;
+        position: fixed;
+        top: 0;
+        z-index: 10;
+        height: 75px;
+        border-bottom: 1px solid #00000080;
+
+        section {
+            position: relative;
+
+            h2 {
+                width: 175px;
+                margin-top: 10px;
+                @include centering(0);
+            }
+
+            #hamburger {
+                display: block;
+                position: absolute;
+                top: 23px;
+                left: 23px;
+                width: 30px;
+                height: 30px;
+            }
+
+            #header-menu {
+                display: flex;
+                flex-flow: column;
+                justify-content: left;
+                gap: 15px;
+                position: absolute;
+                top: 135px;
+                left: 0;
+                width: 95%;
+                height: calc(100vh - 75px);
+                background: #F8F8F8;
+                text-align: left;
+                
+
+                li {
+                    width: 80%;
+                    height: 75px;
+                    margin: 0 0 0 5%;
+                    padding-left: 5%;
+                    line-height: 80px;
+                    border-bottom: 1px solid #00000080;
+                    @include rem-pixel(18);
+                }
+            }
+
+            .download {
+                display: block;
+                position: absolute;
+                top: 15px;
+                right: 0;
+                width: 70px;
+                height: 70px;
+                margin: 0;
+                font-weight: normal;
+                @include rem-pixel(20);
+                &::after{
+                    content: "";
+                }
+            }
+        }
+    }
+
+    nav {
+        position: fixed;
+        top: 75px;
+        z-index: 10;
+        height: 60px;
+        border-bottom: 1px solid #0000004d;
+        ul {
+            li {
+                margin: 0 25px;
+                margin-top: 18px;
+                white-space: nowrap;
+                font-weight: bold;
+                @include rem-pixel(15);
+            }
+        }
+    }
+    h1{
+        margin-top: 135px;
+    }
+}
